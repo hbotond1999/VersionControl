@@ -123,4 +123,7 @@
   <data name="FullName" xml:space="preserve">
     <value>Teljes név</value>
   </data>
+  <data name="Write" xml:space="preserve">
+    <value>Importálás excelbe</value>
+  </data>
 </root>
