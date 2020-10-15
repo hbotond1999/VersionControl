@@ -1,4 +1,5 @@
-﻿using _6.gyak.MnbServiceReference;
+﻿using _6.gyak.Entities;
+using _6.gyak.MnbServiceReference;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,12 +21,14 @@ namespace _6.gyak
             startDate = "2020-01-01",
             endDate= "2020-06-30"
         };
-        
+
+        BindingList<RateData> rates = new BindingList<RateData>();
         public Form1()
         {
             InitializeComponent();
             var response = mnbService.GetExchangeRates(request);
             var result = response.GetExchangeRatesResult;
+            dataGridView1.DataSource = rates;
         }
     }
 }
