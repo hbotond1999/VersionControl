@@ -18,12 +18,13 @@ namespace _7.gyak
         List<BirthProbability> Születés = new List<BirthProbability>();
         List<DeathProbability> Halál = new List<DeathProbability>();
         Random rng = new Random(1234);
-       
+        List<int> férfi = new List<int>();
+        List<int> nő = new List<int>();
 
         public Form1()
         {
             InitializeComponent();
-            People = GetPeople(@"C:\Temp\nép.csv");
+            People = GetPeople(textBox1.Text);
             Születés = GetSzületés(@"C:\Temp\születés.csv");
             Halál = GetHalál(@"C:\Temp\halál.csv");
 
@@ -35,36 +36,7 @@ namespace _7.gyak
 
         }
 
-        private void SimStep(int év, Person person)
-        {
-            if (!person.Isalive) return;
-
-            var age = év - person.BirthYear;
-
-            double pDeath = (from x in Halál
-                             where x.Gender == person.Gender && x.Kor == age
-                             select x.P).FirstOrDefault();
-
-            if (rng.NextDouble() <= pDeath)
-                person.Isalive = false;
-
-            if (person.Isalive==true && person.Gender==Gender.Female)
-            {
-                double pszül = (from x in Születés
-                               where x.Kor == age
-                                 select x.P).FirstOrDefault();
-
-                if (rng.NextDouble() <= pszül)
-                {
-                    Person újszülött = new Person();
-                    újszülött.BirthYear = év;
-                    újszülött.NumberOfChildren = 0;
-                    újszülött.Gender = (Gender)(rng.Next(1, 3));
-                    People.Add(újszülött);
-                }
-            }
-
-        }
+        
 
         private List<DeathProbability> GetHalál(string v)
         {
@@ -137,6 +109,7 @@ namespace _7.gyak
 
         private void Simulation()
         {
+            richTextBox1.Clear();
             for (int év = 2005; év <= numericUpDown1.Value; év++)
             {
                 for (int i = 0; i <= People.Count(); i++)
@@ -174,8 +147,37 @@ namespace _7.gyak
                              select x).Count();
                 var Females = (from x in People where x.Gender == Gender.Female && x.Isalive select x).Count();
 
-                richTextBox1.Text=string.Format("Év:{0} Fiúk:{1} Lányok:{2}", év, Males, Females);
+               
+                nő.Add(Females);
+                férfi.Add(Males);
+
+                
             }
+            DisplayResults();
+
+        }
+
+        private void DisplayResults()
+        {
+
+            
+            for (int i = 2005; i <= numericUpDown1.Value; i++)
+            {
+                
+                richTextBox1.Text ="Év:"+i+"\n"+"\t"+"Nő:"+nő[i-2005]+"\n"+"\t"+"Férfi:"+férfi[i-2005];
+              
+
+            }
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog open = new OpenFileDialog();
+            if (open.ShowDialog()==DialogResult.OK)
+            {
+                textBox1.Text = open.FileName;
+            }
+           
         }
     }
 }
