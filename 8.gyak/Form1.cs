@@ -16,5 +16,7 @@ namespace _8.gyak
         {
             InitializeComponent();
         }
+
+       
     }
 }
