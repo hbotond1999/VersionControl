@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 
 namespace _8.gyak.Entities
 {
-    public class BallFactory : IToyFactory
+    public class PresenFactory : IToyFactory
     {
-        public Color BallColor { get; set; }
+        public Color ribbon1 { get;  set; }
+        public Color box1 { get;  set; }
         public Toy CreateNew()
         {
-            return new Ball(BallColor);
+            return new Present(ribbon1, box1);
         }
     }
 }

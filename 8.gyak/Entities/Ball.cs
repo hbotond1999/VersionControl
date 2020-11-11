@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _8.gyak.Abstarctions;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -8,28 +9,22 @@ using System.Windows.Forms;
 
 namespace _8.gyak.Entities
 {
-    class Ball : Label
+    public class Ball : Toy
     {
-        public Ball()
+        public SolidBrush BallColor { get; private set; }
+
+        public Ball( Color color)
         {
-            AutoSize = false;
-            Height = 50;
-            Width = 50;
-           
-        }
-        private void Ball_Paint(object sender, PaintEventArgs e)
-        {
-            DrawImage(e.Graphics);
+            BallColor = new SolidBrush(color);
         }
 
-        protected void DrawImage(Graphics g)
+        
+
+        protected override void DrawImage(Graphics g)
         {
-            g.FillEllipse(new SolidBrush(Color.Blue), 0, 0, Width, Height);
+            g.FillEllipse(BallColor, 0, 0, Width, Height);
         }
 
-        private void Ball_Move()
-        {
-            Left = Left + 1;
-        }
+
     }
 }
