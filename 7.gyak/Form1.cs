@@ -73,6 +73,7 @@ namespace _7.gyak
                         Kor = int.Parse(line[0]),
                         P = double.Parse(line[2]),
                         GyermekekSzáma = int.Parse(line[1])
+                        
                     });
 
                 }
@@ -94,7 +95,9 @@ namespace _7.gyak
                     people.Add(new Person() {
                         BirthYear = int.Parse(line[0]),
                         Gender = (Gender)Enum.Parse(typeof(Gender), line[1]),
-                        NumberOfChildren = int.Parse(line[2])
+                        NumberOfChildren = int.Parse(line[2]),
+                        Isalive=bool.Parse(line[3])
+                        
                     });
 
                 }
