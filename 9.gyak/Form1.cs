@@ -14,6 +14,7 @@ namespace _9.gyak
         public Form1()
         {
             InitializeComponent();
+            gc.GameOver += Gc_GameOver;
 
             ga = gc.ActivateDisplay();
             this.Controls.Add(ga);
@@ -24,8 +25,19 @@ namespace _9.gyak
                 gc.AddPlayer(nbrOfSteps);
             };
             gc.Start();
+            
 
+        }
 
+        private void Gc_GameOver(object sender)
+        {
+            generation ++;
+            label1.Text = string.Format("{0}. generáció", generation);
+
+            var playerList = from p in gc.GetCurrentPlayers()
+                             orderby p.GetFitness() descending
+                             select p;
+            var topPerformers = playerList.Take(populationSize / 2).ToList();
         }
     }
 }
