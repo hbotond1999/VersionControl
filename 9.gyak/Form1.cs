@@ -66,6 +66,16 @@ namespace _9.gyak
                 gc.GameOver -= Gc_GameOver;
                 return;
             }
+
+        }
+
+        private void Button1_Click(object sender, System.EventArgs e)
+        {
+            gc.ResetCurrentLevel();
+            gc.AddPlayer(winnerBrain.Clone());
+            gc.AddPlayer();
+            ga.Focus();
+            gc.Start(true);
         }
     }
 }
